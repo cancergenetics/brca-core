@@ -1,0 +1,1 @@
+Github doesn't store empty directories, this file is just to ensure that the results directory exists. Results will be stored in this directory

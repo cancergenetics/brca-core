@@ -30,7 +30,7 @@ for i in os.listdir("./") :
             llrs = []
             for x in f :
                 parts = x.split()
-                llrs.append(float(parts[1]))
+                llrs.append((int(parts[0]),float(parts[1])))
             rand_runs.append(llrs)
             print i, len(llrs)
 print len(rand_runs)
@@ -51,14 +51,14 @@ observed_scores = sorted(cluster_scores.values(),reverse=True)
 
 threshold = 0
 for i in observed_scores :
-    real_count = len([x for x in observed_scores if x >= i])
+    real_count = sum([len(cluster_members[x]) for x in cluster_scores if cluster_scores[x] >= i])
     random_counts = []
     for run in rand_runs :
-        random_counts.append(len([x for x in run if x >= i]))
-    fdr = np.mean(random_counts) / float(real_count)
-    if fdr <= fdr_threshold :
+        random_counts.append(sum([x[0] for x in run if x[1] >= i]))
+    fdr = np.median(random_counts) / float(real_count)
+    if fdr < fdr_threshold :
         threshold = i
-        print "At a threshold of %s we observe %s real vs %s expected clusters" % (i, real_count, np.mean(random_counts))
+        print "At a threshold of %s we observe %s real vs %s expected genes in clusters" % (i, real_count, np.median(random_counts))          
         print "We estimate the FDR at ", fdr
 
 output_name = "%s_%s_clusters_entrez_fdr%s.txt" % (dataset_name, ppi_dataset,fdr_threshold)

@@ -1,4 +1,4 @@
-The input files required for this script can (temporarily) be obtained from https://www.dropbox.com/s/wqf4b0ncfacdgie/input_files.zip?dl=0
+The input files required for this script can (temporarily) be obtained from https://www.dropbox.com/s/pbuc87swsx6eb22/input_files.zip?dl=0
 
 The clustering.py script integrates protein expression with PPI data to identify potential protein complexes. It requires a weighted protein protein interaction network and a weighted protein co-expression matrix. Both are expected to contain log-likelihood ratios. 
 

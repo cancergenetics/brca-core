@@ -7,7 +7,6 @@ import operator
 import sys
 import pickle
 import argparse
-from colmutils.tools import get_ordered_tuple
 from collections import defaultdict
 from copy import deepcopy
 
@@ -77,6 +76,18 @@ with open("Background_gene_set.txt","w") as f:
 
 overlap = set([x for x in g.nodes() if x in expression_data])
 missing_llr = math.log(1./300)
+
+def get_ordered_tuple(item_a, item_b) :
+    """
+    Takes two items as input & returns an ordered tuple as the result.
+    
+    Useful for interactions so that (A,B) & (B,A) are not treated seperately
+    
+    """
+    if cmp(item_a,item_b) <= 0:
+        return (item_a, item_b)
+    else :
+        return (item_b, item_a)
 
 def score_ppis(group1, group2):
     total = 0
